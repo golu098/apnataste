@@ -8,6 +8,7 @@ export default function ProductsPage() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [priceRange, setPriceRange] = useState([0, 500]);
+  
 
   const products = [
     { id: 1, name: "Organic Apple", category: "Fruits", price: 50, originalPrice: 80, discount: 30, rating: 5, image: "/apple.jpg" },

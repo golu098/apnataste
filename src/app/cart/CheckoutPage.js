@@ -1,46 +1,69 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useCart } from "./cartContext";
-import QRCode from "qrcode.react";
-import Link from "next/link";
+// import QRCode from "qrcode.react";
+import countriesData from "./countriesData";
+import { sendEmail } from "./emailService";
 
 export default function CheckoutPage() {
-  const { cart } = useCart();
   const [formData, setFormData] = useState({
+    country: "",
+    state: "",
     name: "",
     mobile: "",
-    address: "",
-    city: "",
-    state: "",
+    flat: "",
+    area: "",
+    landmark: "",
     pincode: "",
+    city: "",
+    instructions: "",
   });
 
+  const [states, setStates] = useState([]);
   const [showQR, setShowQR] = useState(false);
-  const [upiLink, setUpiLink] = useState("");
-  const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   useEffect(() => {
-    if (cart.length === 0) {
-      alert("Your cart is empty. Redirecting to cart page...");
-      window.location.href = "/cart";
-    }
-  }, [cart]);
+    setStates(countriesData[formData.country] || []);
+  }, [formData.country]);
 
-  const handleSubmit = (e) => {
+  const fetchLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+        const data = await response.json();
+
+        setFormData((prev) => ({
+          ...prev,
+          area: data.address.road || "",
+          city: data.address.city || data.address.town || "",
+          state: data.address.state || "",
+          pincode: data.address.postcode || "",
+          country: data.address.country || "",
+        }));
+      });
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, mobile, address, city, state, pincode } = formData;
 
-    if (!name || !mobile || !address || !city || !state || !pincode) {
-      alert("Please fill all the details.");
-      return;
-    }
+    const orderDetails = `
+      Name: ${formData.name}
+      Mobile: ${formData.mobile}
+      Address: ${formData.flat}, ${formData.area}, ${formData.landmark}, ${formData.city}, ${formData.state}, ${formData.pincode}
+      Instructions: ${formData.instructions}
+    `;
 
-    // Generate a UPI Payment Link (Replace 'yourUPIID@upi' with actual UPI ID)
-    const upiPaymentURL = `upi://pay?pa=yourUPIID@upi&pn=${encodeURIComponent(
-      name
-    )}&mc=&tid=&tr=&tn=Payment for Order&am=${totalAmount.toFixed(2)}&cu=INR`;
+    await sendEmail({
+      to: "your-email@example.com",
+      subject: "New Order Received",
+      body: orderDetails,
+    });
 
-    setUpiLink(upiPaymentURL);
     setShowQR(true);
   };
 
@@ -48,102 +71,143 @@ export default function CheckoutPage() {
     <div className="container mx-auto p-6 max-w-lg">
       <h1 className="text-2xl font-bold mb-4">Checkout</h1>
 
-      {cart.length === 0 ? (
-        <p className="text-gray-500">Your cart is empty.</p>
-      ) : (
-        <>
-          {/* Order Summary */}
-          <div className="border p-4 rounded-md shadow-md bg-white">
-            <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
-            {cart.map((item) => (
-              <div key={item.id} className="flex justify-between border-b py-2">
-                <span>
-                  {item.name} × {item.quantity}
-                </span>
-                <span className="font-semibold">${item.price * item.quantity}</span>
-              </div>
+      <form onSubmit={handleSubmit} className="grid gap-4">
+        {/* Country Dropdown */}
+        <label>
+          Country:
+          <select
+            value={formData.country}
+            onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+            required
+          >
+            <option value="">Select Country</option>
+            {Object.keys(countriesData).map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
             ))}
-            <h3 className="text-xl font-bold mt-4">Total: ${totalAmount.toFixed(2)}</h3>
-          </div>
+          </select>
+        </label>
 
-          {/* Shipping Details Form */}
-          <form onSubmit={handleSubmit} className="grid gap-4 mt-4">
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="border p-2 rounded-md"
-              required
-            />
-            <input
-              type="tel"
-              placeholder="Mobile Number"
-              value={formData.mobile}
-              onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-              className="border p-2 rounded-md"
-              required
-            />
-            <textarea
-              placeholder="Full Address"
-              value={formData.address}
-              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              className="border p-2 rounded-md"
-              required
-            />
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="City"
-                value={formData.city}
-                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                className="border p-2 rounded-md w-1/2"
-                required
-              />
-              <input
-                type="text"
-                placeholder="State"
-                value={formData.state}
-                onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                className="border p-2 rounded-md w-1/2"
-                required
-              />
-            </div>
-            <input
-              type="text"
-              placeholder="Pincode"
-              value={formData.pincode}
-              onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-              className="border p-2 rounded-md"
-              required
-            />
-            <button type="submit" className="bg-green-500 text-white py-2 rounded-md">
-              Proceed to Payment
-            </button>
-          </form>
+        {/* State Dropdown */}
+        <label>
+          State:
+          <select
+            value={formData.state}
+            onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+            required
+          >
+            <option value="">Select State</option>
+            {states.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
+        </label>
 
-          {/* QR Code for UPI Payment */}
-          {showQR && (
-            <div className="text-center mt-6">
-              <h2 className="text-xl font-bold mb-2">Scan QR to Pay</h2>
-              <QRCode value={upiLink} size={200} />
-              <p className="text-gray-500 mt-2">Use UPI (Google Pay, PhonePe, Paytm) to complete the payment.</p>
-              <a
-                href={upiLink}
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md inline-block"
-              >
-                Pay Now
-              </a>
-            </div>
-          )}
+        {/* Name */}
+        <label>
+          Name:
+          <input
+            type="text"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+          />
+        </label>
 
-          {/* Back to Cart */}
-          <div className="mt-4 text-center">
-            <Link href="/cart">
-              <button className="text-blue-500 underline">Back to Cart</button>
-            </Link>
-          </div>
-        </>
+        {/* Mobile */}
+        <label>
+          Mobile:
+          <input
+            type="tel"
+            value={formData.mobile}
+            onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+            required
+          />
+        </label>
+
+        {/* Use My Location Button */}
+        <button type="button" onClick={fetchLocation} className="bg-gray-500 text-white px-4 py-2 rounded-md">
+          Use My Location
+        </button>
+
+        {/* Flat/House/Apartment Number */}
+        <label>
+          Flat No / House No / Apartment No:
+          <input
+            type="text"
+            value={formData.flat}
+            onChange={(e) => setFormData({ ...formData, flat: e.target.value })}
+            required
+          />
+        </label>
+
+        {/* Area / Street / Sector / Village */}
+        <label>
+          Area / Street / Sector / Village:
+          <input
+            type="text"
+            value={formData.area}
+            onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+            required
+          />
+        </label>
+
+        {/* Landmark */}
+        <label>
+          Landmark:
+          <input
+            type="text"
+            value={formData.landmark}
+            onChange={(e) => setFormData({ ...formData, landmark: e.target.value })}
+          />
+        </label>
+
+        {/* Pincode */}
+        <label>
+          Pincode:
+          <input
+            type="number"
+            value={formData.pincode}
+            onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
+            required
+          />
+        </label>
+
+        {/* City */}
+        <label>
+          Town/City:
+          <input
+            type="text"
+            value={formData.city}
+            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+            required
+          />
+        </label>
+
+        {/* Delivery Instructions */}
+        <label>
+          Delivery Instructions (Optional):
+          <textarea
+            value={formData.instructions}
+            onChange={(e) => setFormData({ ...formData, instructions: e.target.value })}
+          />
+        </label>
+
+        {/* Submit Button */}
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          Proceed to Payment
+        </button>
+      </form>
+
+      {/* Show QR Code after submission */}
+      {showQR && (
+        <div className="text-center mt-6">
+          <h2 className="text-xl font-bold mb-2">Scan QR to Pay</h2>
+          {/* <QRCode value="upi://pay?pa=yourUPIID@upi&pn=Your Name&am=100.00&cu=INR" /> */}
+        </div>
       )}
     </div>
   );

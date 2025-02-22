@@ -20,7 +20,9 @@ export function CartProvider({ children }) {
 
   const updateQuantity = (id, quantity) => {
     setCart((prevCart) =>
-      prevCart.map((item) => (item.id === id ? { ...item, quantity } : item))
+      prevCart.map((item) =>
+        item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+      )
     );
   };
 

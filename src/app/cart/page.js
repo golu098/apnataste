@@ -1,5 +1,6 @@
 import { CartProvider } from "./cartContext";
 import CartPage from "./CartPage";
+import CheckoutPage from "./CheckoutPage";
 // import CheckoutPage from "./CheckoutPage";
 
 export default function Cart() {
@@ -10,6 +11,7 @@ export default function Cart() {
       <div>
         <CartPage/>
         <CartProvider/>
+        <CheckoutPage/>
         
       </div>
     );

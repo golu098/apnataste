@@ -1,5 +1,5 @@
 "use client";
-import { useCart } from "./cartContext";
+import { useCart } from "../cart/cartContext";
 import { FaTrash } from "react-icons/fa";
 import Link from "next/link";
 
