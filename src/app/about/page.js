@@ -12,7 +12,7 @@ export default function About() {
             {/* Left Section - Image */}
             <div className="flex justify-center">
               <img
-                src="/about-image.jpg"
+                src="https://i.pinimg.com/originals/50/78/a0/5078a05eb1b6847d93383eaa4c0ed500.gif"
                 alt="About Us"
                 className="w-full max-w-md rounded-lg shadow-lg"
               />
