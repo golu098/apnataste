@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion"; // Animation Library
 import { useCart } from "../cart/cartContext";
+import Chatbot from "@/components/Chatbot";
 
 export default function ProductDetails({ params }) {
   const { id } = params; // Get product ID from URL
@@ -25,6 +26,8 @@ export default function ProductDetails({ params }) {
   if (!product) return <p>Loading...</p>;
 
   return (
+    <>
+    <Chatbot/>
     <motion.div
       className="container mx-auto p-6"
       initial={{ opacity: 0, y: 20 }}
@@ -85,5 +88,6 @@ export default function ProductDetails({ params }) {
         </div>
       </div>
     </motion.div>
+    </>
   );
 }

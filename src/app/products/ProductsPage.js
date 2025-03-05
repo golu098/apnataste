@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ProductCard from "./ProductCard";
 import { FaSearch, FaFilter } from "react-icons/fa";
-import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function ProductsPage() {
   const [search, setSearch] = useState("");
@@ -33,7 +33,6 @@ export default function ProductsPage() {
     });
 
   return (
-    <>
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">🛍️ Browse Products</h1>
 
@@ -99,8 +98,8 @@ export default function ProductsPage() {
           )}
         </div>
       </div>
+      <Chatbot/>
     </div>
-    <Footer/>
-    </>
+    
   );
 }

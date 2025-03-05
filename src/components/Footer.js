@@ -1,16 +1,17 @@
 "use client";
 import Link from "next/link";
+import { Facebook, Instagram, Twitter, Youtube, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-10">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-
+        
         {/* Column 1 - Company Info */}
         <div>
-          <h3 className="text-2xl font-bold text-green-400">OrganicShop</h3>
+          <h3 className="text-2xl font-bold text-green-400">ApnaTaste</h3>
           <p className="text-gray-400 mt-3">
-            Your trusted online marketplace for 100% organic and natural products.
+            Bringing You Closer to Home, One Bite at a Time
           </p>
         </div>
 
@@ -25,31 +26,30 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Column 3 - Blog and Customer Support */}
+        {/* Column 3 - Customer Support */}
         <div>
           <h4 className="text-xl font-semibold text-green-400">Customer Support</h4>
           <ul className="mt-3 space-y-2">
-            <li><Link href="/faq" className="hover:text-green-400">FAQ</Link></li> {/* Link Fixed */}
-            <li><Link href="/shipping" className="hover:text-green-400">Shipping & Delivery</Link>
-
-            </li>
-            {/* <li><Link href="/returns" className="hover:text-green-400">Returns & Refunds</Link></li> */}
-            <li><Link href="/blog" className="hover:text-green-400">Blog</Link></li>
+            <li><Link href="/faq" className="hover:text-green-400">FAQ</Link></li>
           </ul>
+          <div className="mt-3 text-gray-400">
+            <p className="flex items-center gap-2"><Phone size={16} /> +91 62020 55728</p>
+            <p className="flex items-center gap-2"><Mail size={16} />apnataste2@gmail.com</p>
+          </div>
         </div>
       </div>
 
       {/* Social Media Links */}
       <div className="mt-8 flex justify-center space-x-6">
-        <Link href="https://facebook.com" className="hover:text-green-400"><i className="fab fa-facebook-f text-xl"></i></Link>
-        <Link href="https://instagram.com" className="hover:text-green-400"><i className="fab fa-instagram text-xl"></i></Link>
-        <Link href="https://twitter.com" className="hover:text-green-400"><i className="fab fa-twitter text-xl"></i></Link>
-        <Link href="https://youtube.com" className="hover:text-green-400"><i className="fab fa-youtube text-xl"></i></Link>
+        <Link href="https://facebook.com" className="hover:text-green-400"><Facebook size={24} /></Link>
+        <Link href="https://instagram.com" className="hover:text-green-400"><Instagram size={24} /></Link>
+        <Link href="https://twitter.com" className="hover:text-green-400"><Twitter size={24} /></Link>
+        <Link href="https://youtube.com" className="hover:text-green-400"><Youtube size={24} /></Link>
       </div>
 
       {/* Copyright */}
       <div className="mt-6 text-center text-gray-400">
-        © {new Date().getFullYear()} OrganicShop. All Rights Reserved.
+        © {new Date().getFullYear()} ApnaTaste. All Rights Reserved.
       </div>
     </footer>
   );

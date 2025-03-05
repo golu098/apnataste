@@ -87,33 +87,33 @@ const products1 = [
 ];
 const reviews = [
   {
-    name: "Rahul Sharma",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    name: "Varnit Chauhan",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQGDXfIcT-ZLnA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1708623272757?e=1746662400&v=beta&t=UKIHmoF9qOmHCNj0ohGJEtJAaGzIDOD2Ni-4cPdW0x8",
     review: "Amazing product quality and great service! Will definitely buy again.",
   },
   {
-    name: "Priya Verma",
-    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    name: "Raj Nayan",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQGKI8WUWT97NQ/profile-displayphoto-shrink_400_400/B56ZOR6uKPG8Ak-/0/1733319911418?e=1746662400&v=beta&t=poiDg6Xs3SorEL6HyilcWQ-kpoQr1AsNPs3kYShdir4",
     review: "Loved the packaging and timely delivery. Highly recommended!",
   },
   {
-    name: "Amit Kumar",
-    image: "https://randomuser.me/api/portraits/men/3.jpg",
+    name: "Hrushikesh Mahajan",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQEe_918ykq06g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722112434921?e=1746662400&v=beta&t=njjaqTSCXWHhL6v1nhmDePCcsmzKGh373nQbjGM03yQ",
     review: "The organic quality is top-notch. Very satisfied with my purchase.",
   },
   {
-    name: "Neha Singh",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+    name: "Anchal",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQH08HrODxRMKA/profile-displayphoto-shrink_400_400/B4DZPKBGxxHUAg-/0/1734261108330?e=1746662400&v=beta&t=J7C28NqTPi2kOgyDBBjhQ7ZOmI6km5bGqf3-7GE7z94",
     review: "Great customer service and premium products at the best prices!",
   },
   {
-    name: "Vikram Das",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
+    name: "Ashish Vidyarthi",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQEbOc68DXgC0w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1697822842331?e=1746662400&v=beta&t=5rZ3f8v_FHZEZIW08YD0dVfXivN4mucTbV4iR9xZQXQ",
     review: "I appreciate the effort they put into sustainable packaging.",
   },
   {
-    name: "Anjali Mehta",
-    image: "https://randomuser.me/api/portraits/women/6.jpg",
+    name: "Saurav Shankar",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQFcQjKGj_dUbw/profile-displayphoto-shrink_400_400/B56ZOw0apDGkAk-/0/1733838356829?e=1746662400&v=beta&t=NAVhKT0biGm1sMBGjvqzaaEjt_i_wQ1vswC-Zfah7PU",
     review: "Excellent experience. The website is easy to navigate, and the products are great!",
   },
 ];

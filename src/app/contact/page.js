@@ -1,4 +1,5 @@
 "use client";
+import Chatbot from "@/components/Chatbot";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 
@@ -100,6 +101,7 @@ export default function ContactUs() {
         </div>
       </div>
     </section>
+    <Chatbot/>
     <Footer/>
     </div>
     </>

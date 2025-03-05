@@ -1,3 +1,4 @@
+import Chatbot from "@/components/Chatbot";
 import { CartProvider } from "./cartContext";
 import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
@@ -12,6 +13,7 @@ export default function Cart() {
         <CartPage/>
         <CartProvider/>
         <CheckoutPage/>
+        <Chatbot/>
         
       </div>
     );

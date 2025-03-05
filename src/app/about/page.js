@@ -1,5 +1,9 @@
 import Footer from "@/components/Footer";
 import BlogSection from "./BlogSection";
+import OurProcess from "./OurProcess";
+import OurStory from "./OurStory";
+import MeetOurTeam from "./MeetOurTeam";
+import Chatbot from "@/components/Chatbot";
 
 export default function About() {
   return (
@@ -45,7 +49,11 @@ export default function About() {
           </div>
         </div>
       </section>
-      <BlogSection />
+      {/* <BlogSection /> */}
+      <OurProcess />
+      <OurStory/>
+      <MeetOurTeam/>
+      <Chatbot/>
       <Footer />
     </div>
   );

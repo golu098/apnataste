@@ -11,10 +11,8 @@ export default function ProductCard({ product }) {
     <div
       className="border p-4 rounded-lg shadow-md bg-white hover:shadow-lg transition-transform duration-300 transform hover:scale-105 cursor-pointer"
       onClick={() =>
-        router.push(
-          `/product-details?name=${encodeURIComponent(product.name)}&price=${product.price}&image=${product.image}&category=${product.category}&rating=${product.rating}&discount=${product.discount}&originalPrice=${product.originalPrice}`
-        )
-      }
+        router.push(`/productDetails/${encodeURIComponent(product.name)}`)
+      }      
     >
       <img
         src={product.image}

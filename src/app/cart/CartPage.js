@@ -48,9 +48,9 @@ export default function CartPage() {
           <div className="mt-6 flex justify-between items-center">
             <h2 className="text-2xl font-semibold">Total: ${getTotalPrice()}</h2>
             <Link href="/checkout">
-              <button className="bg-green-500 text-white px-4 py-2 rounded-lg">
+              {/* <button className="bg-green-500 text-white px-4 py-2 rounded-lg">
                 Proceed to Checkout
-              </button>
+              </button> */}
             </Link>
           </div>
         </>

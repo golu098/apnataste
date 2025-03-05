@@ -1,26 +1,25 @@
-"use client";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion"; // Animation Library
 import { useCart } from "../cart/cartContext";
 
 export default function ProductDetails({ params }) {
-  const { id } = params; // Get product ID from URL
+  const { name } = params; // Get product name from URL
   const { addToCart } = useCart();
   const router = useRouter();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    // Fetch product data based on the ID (replace with real API or state)
+    // Fetch product data based on the name (replace with real API or state)
     const products = [
-      { id: 1, name: "Organic Apple", category: "Fruits", price: 50, originalPrice: 80, discount: 30, rating: 5, state: "Himachal Pradesh", ingredients: ["Apple"], testimonials: ["Best apple I ever had!", "Fresh and juicy!"], description: "Organic apples sourced from Himalayan orchards.", image: "/apple.jpg" },
-      { id: 2, name: "Fresh Carrots", category: "Vegetables", price: 30, originalPrice: 50, discount: 40, rating: 4, state: "Punjab", ingredients: ["Carrot"], testimonials: ["Sweet and crunchy.", "Perfect for salads."], description: "Farm-fresh carrots grown in Punjab’s rich soil.", image: "/carrots.jpg" },
+      { name: "Organic Apple", category: "Fruits", price: 50, originalPrice: 80, discount: 30, rating: 5, state: "Himachal Pradesh", ingredients: ["Apple"], testimonials: ["Best apple I ever had!", "Fresh and juicy!"], description: "Organic apples sourced from Himalayan orchards.", image: "/apple.jpg" },
+      { name: "Fresh Carrots", category: "Vegetables", price: 30, originalPrice: 50, discount: 40, rating: 4, state: "Punjab", ingredients: ["Carrot"], testimonials: ["Sweet and crunchy.", "Perfect for salads."], description: "Farm-fresh carrots grown in Punjab’s rich soil.", image: "/carrots.jpg" },
     ];
 
-    const selectedProduct = products.find((p) => p.id === parseInt(id));
+    const selectedProduct = products.find((p) => p.name === decodeURIComponent(name));
     setProduct(selectedProduct);
-  }, [id]);
+  }, [name]);
 
   if (!product) return <p>Loading...</p>;
 

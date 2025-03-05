@@ -12,7 +12,7 @@ const Navbar = () => {
     <nav className="bg-white p-4 shadow-lg flex justify-between items-center">
       {/* Logo wrapped inside Link */}
       <Link href="/">
-        <h1 className="text-black text-xl font-bold cursor-pointer">MyStore</h1>
+        <h1 className="text-black text-xl font-bold cursor-pointer">ApnaTaste</h1>
       </Link>
 
       {/* Desktop Navigation */}
