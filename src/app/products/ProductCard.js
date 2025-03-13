@@ -28,6 +28,10 @@ export default function ProductCard({ product }) {
         <span className="text-gray-500 line-through ml-2">${product.originalPrice}</span>
         <span className="text-red-500 ml-2">({product.discount}% OFF)</span>
       </div>
+      <div className="flex items-center mt-2">
+              <span className="text-gray-500">{product.weight}</span>
+
+        </div>
 
       <div className="flex items-center mt-2">
         {[...Array(5)].map((_, i) => (

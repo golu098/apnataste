@@ -13,7 +13,7 @@ export default function OurStory() {
             {/* Left - Image */}
             <div className="flex justify-center">
               <img
-                src="https://media.tenor.com/fgvAlIQTsP8AAAAM/newspaper-sunday.gif" 
+                src="https://i.ibb.co/BVnSv34m/image.png" 
                 alt="Our Story"
                 className="w-full max-w-md rounded-lg shadow-lg"
               />

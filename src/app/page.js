@@ -5,7 +5,9 @@ import { Truck, Leaf, DollarSign, RotateCw } from "lucide-react";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck, faSeedling, faDollarSign, faUndo } from "@fortawesome/free-solid-svg-icons";
 
-
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import { useState } from "react";
 import { FaShoppingCart, FaHeart, FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
@@ -146,7 +148,7 @@ export default function Home() {
         <div className="w-full md:w-1/2 h-full">
           <img
             className="w-full h-full object-cover rounded-lg ml-3"
-            src="https://i.ibb.co/gMbsyLT9/image.png"
+            src="https://i.ibb.co/RG8vvQvq/image.png"
             alt="banner"
           />
         </div>
@@ -210,34 +212,35 @@ Experience the rich heritage of local sweets and snacks, crafted with love and t
 
    
         {/* Best Selling Product */}
-        <div className="p-10 bg-gray-100">
+        {/* <div className="p-10 bg-gray-100">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
         Best Selling Products
-      </h2>
+      </h2> */}
 
       {/* Product Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map((product) => (
-       <div key={product.id} className="relative bg-white p-4 rounded-lg shadow-md">
+          
+       <div key={product.id} className="relative bg-white p-4 rounded-lg shadow-md"> */}
 
             {/* Product Image */}
-            <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded" />
+         {/* <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded" /> */}
 
            {/* Discount Badge */}
-          <div className="absolute top-1 left-2 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+          {/* <div className="absolute top-1 left-2 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
             {Math.round(((product.originalPrice - product.discountedPrice) / product.originalPrice) * 100)}% OFF
-          </div>
+          </div> */}
 
             {/* Product Info */}
-            <h3 className="text-lg font-semibold mt-3">{product.name}</h3>
+            {/* <h3 className="text-lg font-semibold mt-3">{product.name}</h3>
             <p className="text-gray-500 text-sm">{product.weight}</p>
             <p className="mt-2 text-lg font-bold">
               ${product.discountedPrice}{" "}
               <span className="text-gray-500 line-through text-sm">${product.originalPrice}</span>
-            </p>
+            </p> */}
 
             {/* Buttons */}
-            <div className="mt-4 flex justify-between items-center">
+            {/* <div className="mt-4 flex justify-between items-center">
               <button
                 onClick={handleAddToCart}
                 className="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
@@ -252,11 +255,11 @@ Experience the rich heritage of local sweets and snacks, crafted with love and t
               </button>
             </div>
           </div>
-        ))}
-      </div>
+        ))} */}
+      {/* </div> */}
 
       {/* Login Popup */}
-      {showLoginPopup && (
+      {/* {showLoginPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
             <h3 className="text-xl font-semibold mb-4">Login to Continue</h3>
@@ -281,9 +284,48 @@ Experience the rich heritage of local sweets and snacks, crafted with love and t
           </div>
         </div>
       )}
+    </div> */}
+{/* Product page in testing */}
+<div className="container mx-auto p-6">
+<h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        Best Selling Products
+      </h1> 
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {products.map((product, index) => (
+          <motion.div
+            key={index}
+            className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+          >
+            
+            {/* Link for client-side navigation */}
+            <Link href={`/productDetails/${encodeURIComponent(product.name)}`}>
+       {/* Product Info */}
+       <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded" />
+             {/* Discount Badge */}
+          {/* <div className="absolute top-1 left-2 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+            {Math.round(((product.originalPrice - product.discountedPrice) / product.originalPrice) * 100)}% OFF
+          </div> */}
+       <h3 className="text-lg font-semibold mt-3">{product.name}</h3>
+            <p className="text-gray-500 text-sm">{product.weight}</p>
+            <p className="mt-2 text-lg font-bold">
+              ${product.discountedPrice}{" "}
+              <span className="text-gray-500 line-through text-sm">${product.originalPrice}</span>
+            </p>
+              </Link>
+            {/* Buttons */}
+            <div className="mt-4 flex justify-between items-center">
+              <button
+                onClick={handleAddToCart}
+                className="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+              >
+                <FaShoppingCart className="mr-2" /> Add to Cart
+              </button>
+              </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
-
-    
 
     <section className="bg-gray-100 py-10">
       <div className="max-w-5xl mx-auto text-center">

@@ -34,7 +34,7 @@ export default function Chatbot() {
     if (userMessage.includes("cancel")) return "Orders can be canceled before shipment.";
     if (userMessage.includes("support")) return "You can contact support at support@yourstore.com.";
     if (userMessage.includes("product")) return "we have wide range of local tasty product you can find on Product page on above ";
-    
+    if (userMessage.includes("anarsa")) return "Anarsa is famous food of bihar if you want then you can buy from us";
     return "I'm not sure, but you can contact our support team or contact us on mail :- apnaTaste2@gmail.com!";
   };
 

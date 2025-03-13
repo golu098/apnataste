@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import Chatbot from "@/components/Chatbot";
 
 export const metadata = {
-  title: "E-Commerce Store",
-  description: "A stylish e-commerce website using Next.js and Tailwind CSS",
+  title: "ApnaTaste",
+  description: "Bringing You Closer to Home, One Bite at a Time",
 };
 
 export default function RootLayout({ children }) {

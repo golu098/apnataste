@@ -120,7 +120,7 @@ export default function CheckoutPage() {
     <label className="block">
       <span className="text-gray-700 font-medium">Mobile:</span>
       <input
-        type="tel"
+        type="number"
         className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
         value={formData.mobile}
         onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
