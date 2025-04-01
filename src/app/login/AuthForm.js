@@ -1,12 +1,35 @@
-"use client"; // Ensure it's a client component
-
+"use client";
 import { useState } from "react";
+import axios from "axios";
 
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [message, setMessage] = useState("");
 
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isLogin) {
+      try {
+        const response = await axios.post("http://localhost:3001/login", { email, password });
+        setMessage(response.data.message);
+      } catch (error) {
+        setMessage(error.response.data.message);
+      }
+    } else {
+      try {
+        const response = await axios.post("http://localhost:3001/signup", { name: fullName, email, password });
+        setMessage(response.data.message);
+      } catch (error) {
+        setMessage(error.response.data.message);
+      }
+    }
   };
 
   return (
@@ -16,12 +39,14 @@ export default function AuthForm() {
           {isLogin ? "Login" : "Sign Up"}
         </h2>
 
-        <form className="mt-6">
+        <form className="mt-6" onSubmit={handleSubmit}>
           {!isLogin && (
             <div>
               <label className="block text-gray-600">Full Name</label>
               <input
                 type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
                 placeholder="Enter your full name"
                 className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-green-400"
               />
@@ -32,6 +57,8 @@ export default function AuthForm() {
             <label className="block text-gray-600">Email</label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-green-400"
             />
@@ -41,12 +68,14 @@ export default function AuthForm() {
             <label className="block text-gray-600">Password</label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-green-400"
             />
           </div>
 
-          <button className="w-full mt-6 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
+          <button type="submit" className="w-full mt-6 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
             {isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
@@ -57,6 +86,8 @@ export default function AuthForm() {
             {isLogin ? "Sign Up" : "Login"}
           </button>
         </p>
+
+        {message && <p className="mt-4 text-center text-red-600">{message}</p>}
       </div>
     </div>
   );
