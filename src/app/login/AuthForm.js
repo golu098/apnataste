@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 
+const scriptURL = "https://script.google.com/macros/s/AKfycbysEp2UBvAqeAbhoZugRRWeIKkkfoYSAqMKZhL_iO1r-TVCZR76Da7PSZg7HkTf-NIM/exec";
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -15,21 +16,19 @@ export default function AuthForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) {
-      try {
-        const response = await axios.post("http://localhost:3001/login", { email, password });
-        setMessage(response.data.message);
-      } catch (error) {
-        setMessage(error.response.data.message);
-      }
-    } else {
-      try {
-        const response = await axios.post("http://localhost:3001/signup", { name: fullName, email, password });
-        setMessage(response.data.message);
-      } catch (error) {
-        setMessage(error.response.data.message);
-      }
+    const payload = isLogin
+      ? { action: "login", email, password }
+      : { action: "signup", name: fullName, email, password };
+
+    try {
+      const response = await axios.post(scriptURL, payload);
+      setMessage(response.data.message);
     }
+    catch (error) {
+  console.error("Error:", error); // Add this line
+  setMessage("Something went wrong");
+}
+
   };
 
   return (
@@ -75,14 +74,20 @@ export default function AuthForm() {
             />
           </div>
 
-          <button type="submit" className="w-full mt-6 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
+          <button
+            type="submit"
+            className="w-full mt-6 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+          >
             {isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
 
         <p className="mt-4 text-center text-gray-600">
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <button onClick={toggleAuthMode} className="text-green-600 font-semibold">
+          <button
+            onClick={toggleAuthMode}
+            className="text-green-600 font-semibold"
+          >
             {isLogin ? "Sign Up" : "Login"}
           </button>
         </p>
